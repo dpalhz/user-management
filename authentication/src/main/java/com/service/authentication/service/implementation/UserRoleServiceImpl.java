@@ -1,7 +1,9 @@
-package com.service.authentication.service;
+package com.service.authentication.service.implementation;
 import com.service.authentication.dto.UserRoleDto;
 import com.service.authentication.entity.UserRole;
 import com.service.authentication.repository.UserRoleRepository;
+import com.service.authentication.service.UserRoleService;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import com.service.authentication.dto.mapper.UserRoleMapper;

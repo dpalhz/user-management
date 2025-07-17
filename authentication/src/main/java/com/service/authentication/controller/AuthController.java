@@ -4,7 +4,9 @@ import com.service.authentication.dto.response.TokenResponse;
 import com.service.authentication.dto.request.LoginRequest;
 import com.service.authentication.dto.request.RegisterRequest;
 import com.service.authentication.dto.request.TokenRefreshRequest;
-import com.service.authentication.service.AuthService;  
+import com.service.authentication.service.AuthService;
+
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +25,7 @@ public class AuthController {
      * @return a response with a message indicating that a verification email has been sent
      */
     @PostMapping("/register")
-    public ResponseEntity<String> register(@RequestBody RegisterRequest request) {
+    public ResponseEntity<String> register(@Valid @RequestBody RegisterRequest request) {
         authService.register(request);
         return ResponseEntity.ok("Verification email sent.");
     }
@@ -35,7 +37,7 @@ public class AuthController {
      * @return a response with a LoginResponse containing the access and refresh tokens
      */
     @PostMapping("/login")
-    public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest request) {
+    public ResponseEntity<LoginResponse> login(@Valid @RequestBody LoginRequest request) {
         return ResponseEntity.ok(authService.login(request));
     }
 

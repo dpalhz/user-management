@@ -1,4 +1,4 @@
-package com.service.authentication.service;
+package com.service.authentication.service.implementation;
 import com.service.authentication.dto.LoginDeviceDto;
 import com.service.authentication.dto.LoginHistoryDto;
 import com.service.authentication.dto.ProfileDto;
@@ -6,6 +6,8 @@ import com.service.authentication.entity.Profile;
 import com.service.authentication.repository.LoginDeviceRepository;
 import com.service.authentication.repository.LoginHistoryRepository;
 import com.service.authentication.repository.ProfileRepository;
+import com.service.authentication.service.UserDataService;
+
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;

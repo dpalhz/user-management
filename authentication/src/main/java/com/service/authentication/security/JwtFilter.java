@@ -11,6 +11,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
+import java.util.Arrays;  
 
 import java.io.IOException;
 
@@ -21,18 +22,18 @@ public class JwtFilter extends OncePerRequestFilter {
     private final JwtTokenProvider tokenProvider;
     private final CustomUserDetailsService userDetailsService;
 
-    // private static final String[] WHITELIST = {
-    //     "/api/auth",
-    //     "/v3/api-docs",
-    //     "/swagger-ui",
-    //     "/swagger-ui.html"
-    // };
+    private static final String[] WHITELIST = {
+        "/api/auth",
+        "/v3/api-docs",
+        "/swagger-ui",
+        "/swagger-ui.html"
+    };
 
-    // @Override
-    // protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
-    //     String path = request.getServletPath();
-    //     return Arrays.stream(WHITELIST).anyMatch(path::startsWith);
-    // }
+    @Override
+    protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
+        String path = request.getServletPath();
+        return Arrays.stream(WHITELIST).anyMatch(path::startsWith);
+    }
 
     @Override
     protected void doFilterInternal(HttpServletRequest request,

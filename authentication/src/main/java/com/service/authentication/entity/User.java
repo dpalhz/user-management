@@ -1,19 +1,33 @@
 package com.service.authentication.entity;
 
-import jakarta.persistence.*;
-import lombok.*;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.Getter;
+import lombok.Builder;
 
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
+import org.hibernate.annotations.SQLRestriction;
+
 
 @Entity
 @Table(name = "users")
-@Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
+@Setter
 @Builder
-public class User {
+@SQLRestriction("deleted_at IS NULL")
+public class User extends BaseEntity {  
 
     @Id
     @GeneratedValue
@@ -31,21 +45,7 @@ public class User {
 
     @Column(nullable = false)
     @Builder.Default
-    private boolean enabled = false; // default false until verified
+    private boolean enabled = false;
 
     
-    @Column(updatable = false)
-    private Long createdAt;
-
-    private Long updatedAt;
-
-    @PrePersist
-    protected void onCreate() {
-        this.createdAt = System.currentTimeMillis();
-    }
-
-    @PreUpdate
-    protected void onUpdate() {
-        this.updatedAt = System.currentTimeMillis();
-    }
 }
