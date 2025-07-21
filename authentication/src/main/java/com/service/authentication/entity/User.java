@@ -7,17 +7,15 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.Getter;
-import lombok.Builder;
-
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.SQLRestriction;
-
 
 @Entity
 @Table(name = "users")
@@ -27,25 +25,24 @@ import org.hibernate.annotations.SQLRestriction;
 @Setter
 @Builder
 @SQLRestriction("deleted_at IS NULL")
-public class User extends BaseEntity {  
+public class User extends BaseEntity {
 
-    @Id
-    @GeneratedValue
-    private UUID id;
+  @Id @GeneratedValue private UUID id;
 
-    @Column(nullable = false, unique = true)
-    private String email;
+  @Column(nullable = false, unique = true)
+  private String email;
 
-    @Column(nullable = false)
-    private String password;
+  @Column(nullable = false, unique = true)
+  private String name;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    @Builder.Default
-    private Set<UserRoleAssignment> roleAssignments = new HashSet<>();
+  @Column(nullable = false)
+  private String password;
 
-    @Column(nullable = false)
-    @Builder.Default
-    private boolean enabled = false;
+  @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+  @Builder.Default
+  private Set<UserRoleAssignment> roleAssignments = new HashSet<>();
 
-    
+  @Column(nullable = false)
+  @Builder.Default
+  private boolean enabled = false;
 }

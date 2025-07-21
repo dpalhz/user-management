@@ -1,11 +1,12 @@
 package com.service.authentication.entity;
+
 import jakarta.persistence.*;
+import java.time.Instant;
+import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;    
-import java.time.Instant;
-import java.util.UUID;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "login_devices")
@@ -14,24 +15,23 @@ import java.util.UUID;
 @AllArgsConstructor
 @Builder
 public class LoginDevice {
-    @Id @GeneratedValue
-    private UUID id;
+  @Id @GeneratedValue private UUID id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "user_id", nullable = false)
+  private User user;
 
-    private String deviceName;
-    private String ipAddress;
-    private String location;
-    private String userAgent;
-    private Instant lastLoginAt;
+  private String deviceName;
+  private String ipAddress;
+  private String location;
+  private String userAgent;
+  private Instant lastLoginAt;
 
-    @Column(updatable = false)
-    private Instant createdAt;
+  @Column(updatable = false)
+  private Instant createdAt;
 
-    @PrePersist
-    public void onCreate() {
-        this.createdAt = Instant.now();
-    }
+  @PrePersist
+  public void onCreate() {
+    this.createdAt = Instant.now();
+  }
 }

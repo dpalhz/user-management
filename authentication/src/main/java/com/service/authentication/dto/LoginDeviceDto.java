@@ -1,13 +1,13 @@
 package com.service.authentication.dto;
 
-import lombok.Data;
 import java.time.Instant;
+import lombok.Data;
 
 @Data
 public class LoginDeviceDto {
-    private String deviceName;
-    private String ipAddress;
-    private String location;
-    private String userAgent;
-    private Instant lastLoginAt;
+  private String deviceName;
+  private String ipAddress;
+  private String location;
+  private String userAgent;
+  private Instant lastLoginAt;
 }

@@ -8,17 +8,13 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.Builder;
-
-
 import java.time.Instant;
 import java.util.UUID;
-
-
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "user_role_assignments")
@@ -27,25 +23,21 @@ import java.util.UUID;
 @Getter
 @Setter
 @Builder
-public class UserRoleAssignment extends BaseEntity {    
+public class UserRoleAssignment extends BaseEntity {
 
-    @Id
-    @GeneratedValue
-    private UUID id;
+  @Id @GeneratedValue private UUID id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "user_id", nullable = false)
+  private User user;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "role_id", nullable = false)
-    private UserRole userRole;
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "role_id", nullable = false)
+  private UserRole userRole;
 
-    @Column
-    private Instant expiredAt;
+  @Column private Instant expiredAt;
 
-    @JoinColumn(name = "granted_by")
-    @ManyToOne(fetch = FetchType.LAZY)
-    private User grantedBy;
-
+  @JoinColumn(name = "granted_by")
+  @ManyToOne(fetch = FetchType.LAZY)
+  private User grantedBy;
 }

@@ -7,6 +7,4 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/roles")
 @RequiredArgsConstructor
-public class RoleController {
-    
-}
+public class RoleController {}

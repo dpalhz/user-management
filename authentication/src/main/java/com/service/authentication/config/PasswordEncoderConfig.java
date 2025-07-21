@@ -5,13 +5,14 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+// This configuration class defines a bean for the PasswordEncoder using BCrypt.
+// BCrypt is a strong hashing function that is suitable for encoding passwords.
 @Configuration
 public class PasswordEncoderConfig {
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+  @Bean
+  public PasswordEncoder passwordEncoder() {
+    return new BCryptPasswordEncoder();
+  }
 }
-// This configuration class defines a bean for the PasswordEncoder using BCrypt.
-// BCrypt is a strong hashing function that is suitable for encoding passwords. 
+
