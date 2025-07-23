@@ -4,7 +4,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -67,15 +66,14 @@ public class AuthController {
     }
 
   /**
-   * Logs out the user by invalidating the refresh token associated with the provided access token.
+   * Logs out the user by invalidating the provided refresh token.
    *
-   * @param tokenHeader the authorization header containing the Bearer token
+   * @param request request containing the refresh token
    * @return a response with no content indicating successful logout
    */
   @PostMapping("/logout")
-    public ResponseEntity<ApiResponse<Void>> logout(@RequestHeader("Authorization") String tokenHeader) {
-    authService.logout(tokenHeader);
-    return ResponseEntity.ok(
-        ApiResponseUtil.success(200, "Logout successful", null));
-    }
+  public ResponseEntity<ApiResponse<Void>> logout(@RequestBody TokenRefreshRequest request) {
+    authService.logout(request.getRefreshToken());
+    return ResponseEntity.ok(ApiResponseUtil.success(200, "Logout successful", null));
+  }
 }

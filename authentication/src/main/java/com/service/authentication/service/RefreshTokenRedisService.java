@@ -7,5 +7,5 @@ public interface RefreshTokenRedisService {
 
   UUID getUserIdFromRefreshToken(String token);
 
-  boolean deleteRefreshToken(String userId);
+  boolean deleteRefreshToken(String token);
 }
