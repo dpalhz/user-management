@@ -67,6 +67,7 @@ public class AuthServiceImpl implements AuthService {
 
     User user =
         User.builder()
+            .username(request.getEmail().split("@")[0])
             .email(request.getEmail())
             .name(request.getName())
             .password(passwordEncoder.encode(request.getPassword()))
@@ -88,17 +89,21 @@ public class AuthServiceImpl implements AuthService {
 
   @Override
   public LoginResponse login(LoginRequest request) {
-    try {
-      authManager.authenticate(
-          new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
-    } catch (Exception ex) {
-      throw new AuthException(AuthErrorCode.AUTH_INVALID_CREDENTIALS);
-    }
 
     User user =
         userRepository
             .findByEmail(request.getEmail())
             .orElseThrow(() -> new AuthException(AuthErrorCode.AUTH_USER_NOT_FOUND));
+    if (!user.isEnabled()) {
+      throw new AuthException(AuthErrorCode.AUTH_USER_NOT_ENABLED);
+    }
+
+    try {
+      authManager.authenticate(
+          new UsernamePasswordAuthenticationToken(user.getUsername(), request.getPassword()));
+    } catch (Exception ex) {
+      throw new AuthException(AuthErrorCode.AUTH_INVALID_CREDENTIALS);
+    }
 
     String roleName =
         user.getRoleAssignments().stream()
@@ -108,7 +113,7 @@ public class AuthServiceImpl implements AuthService {
 
     String access =
         jwtProvider.generateToken(
-            user.getId().toString(), roleName, jwtConfig.getAccessTokenExpirationMs());
+            user.getUsername(), roleName, jwtConfig.getAccessTokenExpirationMs());
 
     String refresh = UUID.randomUUID().toString();
     refreshTokenRedisService.saveRefreshToken(

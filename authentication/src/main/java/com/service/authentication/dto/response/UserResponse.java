@@ -7,8 +7,11 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class UserResponse {
-  @Schema(description = "Unique UUID identifier of the user", example = "123e4567-e89b-12d3-a456-426614174000")
+  @Schema(
+      description = "Unique UUID identifier of the user",
+      example = "123e4567-e89b-12d3-a456-426614174000")
   private String id;
+
   @Schema(description = "Email address of the user", example = "user@example")
   private String email;
 

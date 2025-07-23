@@ -18,12 +18,12 @@ public class JwtTokenProvider {
     return Keys.hmacShaKeyFor(jwtConfig.getSecret().getBytes());
   }
 
-  public String generateToken(String userId, String role, long expirationMs) {
+  public String generateToken(String username, String role, long expirationMs) {
     Date now = new Date();
     Date expiry = new Date(now.getTime() + expirationMs);
 
     return Jwts.builder()
-        .setSubject(userId)
+        .setSubject(username)
         .claim("role", role)
         .setIssuedAt(now)
         .setExpiration(expiry)

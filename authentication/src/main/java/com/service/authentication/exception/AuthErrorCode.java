@@ -20,7 +20,11 @@ public enum AuthErrorCode {
   AUTH_2FA_REQUIRED(HttpStatus.UNAUTHORIZED, "Two-factor authentication is required"),
   AUTH_2FA_INVALID_CODE(HttpStatus.UNAUTHORIZED, "Invalid 2FA code"),
   AUTH_PROVIDER_MISMATCH(HttpStatus.BAD_REQUEST, "You signed up with a different provider"),
-  AUTH_DUPLICATE_EMAIL(HttpStatus.CONFLICT, "Email is already registered");
+  AUTH_DUPLICATE_EMAIL(HttpStatus.CONFLICT, "Email is already registered"),
+  AUTH_PASSWORD_TOO_WEAK(HttpStatus.BAD_REQUEST, "Password does not meet strength requirements"),
+  AUTH_PASSWORD_MISMATCH(HttpStatus.BAD_REQUEST, "Passwords do not match"),
+  AUTH_USER_ALREADY_EXISTS(HttpStatus.CONFLICT, "User with this email already exists"),
+  AUTH_USER_NOT_ENABLED(HttpStatus.FORBIDDEN, "User account is not enabled");
 
   private final HttpStatus status;
   private final String message;

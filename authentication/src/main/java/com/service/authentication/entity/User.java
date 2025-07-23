@@ -30,6 +30,9 @@ public class User extends BaseEntity {
   @Id @GeneratedValue private UUID id;
 
   @Column(nullable = false, unique = true)
+  private String username;
+
+  @Column(nullable = false, unique = true)
   private String email;
 
   @Column(nullable = false, unique = true)

@@ -22,13 +22,18 @@ public class JwtFilter extends OncePerRequestFilter {
   private final CustomUserDetailsService userDetailsService;
 
   private static final String[] WHITELIST = {
-    "/api/auth", "/v3/api-docs", "/swagger-ui", "/swagger-ui.html"
+    "/api/auth/login",
+    "/api/auth/register",
+    "/api/auth/refresh-token",
+    "/v3/api-docs",
+    "/swagger-ui",
+    "/swagger-ui.html"
   };
 
   @Override
   protected boolean shouldNotFilter(@NonNull HttpServletRequest request) throws ServletException {
     String path = request.getServletPath();
-    return Arrays.stream(WHITELIST).anyMatch(path::startsWith);
+    return Arrays.asList(WHITELIST).contains(path);
   }
 
   @Override
@@ -43,16 +48,28 @@ public class JwtFilter extends OncePerRequestFilter {
     if (authHeader != null && authHeader.startsWith("Bearer ")) {
       String token = authHeader.substring(7);
 
-      if (tokenProvider.isValid(token)) {
-        Claims claims = tokenProvider.getClaims(token);
-        String userId = claims.getSubject();
+      try {
+        if (tokenProvider.isValid(token)) {
+          Claims claims = tokenProvider.getClaims(token);
+          String username = claims.getSubject();
 
-        UserDetails userDetails = userDetailsService.loadUserByUsername(userId);
-        var auth =
-            new UsernamePasswordAuthenticationToken(
-                userDetails, null, userDetails.getAuthorities());
+          if (username == null) {
+            response.sendError(
+                HttpServletResponse.SC_UNAUTHORIZED, "Invalid token: missing subject");
+            return;
+          }
 
-        SecurityContextHolder.getContext().setAuthentication(auth);
+          UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+
+          var auth =
+              new UsernamePasswordAuthenticationToken(
+                  userDetails, null, userDetails.getAuthorities());
+
+          SecurityContextHolder.getContext().setAuthentication(auth);
+        }
+      } catch (Exception e) {
+        response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Invalid token: " + e.getMessage());
+        return;
       }
     }
 

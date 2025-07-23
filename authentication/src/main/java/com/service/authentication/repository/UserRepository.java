@@ -3,8 +3,12 @@ package com.service.authentication.repository;
 import com.service.authentication.entity.User;
 import java.util.Optional;
 import java.util.UUID;
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface UserRepository extends JpaRepository<User, UUID> {
   Optional<User> findByEmail(String email);
+
+  @EntityGraph(attributePaths = {"roleAssignments", "roleAssignments.userRole"})
+  Optional<User> findWithRolesByUsername(String username);
 }

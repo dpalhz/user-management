@@ -9,7 +9,7 @@ import lombok.Data;
 public class LoginResponse {
   @Schema(description = "Token response containing access and refresh tokens")
   private TokenResponse tokenResponse;
-  
+
   @Schema(description = "User response containing user details")
   private UserResponse userResponse;
 }
