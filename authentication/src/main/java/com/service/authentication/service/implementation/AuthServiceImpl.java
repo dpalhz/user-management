@@ -43,7 +43,7 @@ public class AuthServiceImpl implements AuthService {
   private final TokenMapper tokenMapper;
   private final UserMapper userMapper;
 
-  // private final EmailKafkaProducer emailProducer;s
+  // private final EmailKafkaProducer emailProducer;
 
   @Override
   public void register(RegisterRequest request) {

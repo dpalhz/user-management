@@ -15,7 +15,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "login_histories") // atau nama tabel kamu
+@Table(name = "login_histories") 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
