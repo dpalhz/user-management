@@ -20,7 +20,7 @@ public class SwaggerConfig {
                 .version("1.0")
                 .description("API documentation for the Authentication Service"))
         .addSecurityItem(
-            new SecurityRequirement().addList("JWT Authentication")) // <== This line is critical
+            new SecurityRequirement().addList("JWT Authentication")) 
         .components(
             new Components()
                 .addSecuritySchemes(
