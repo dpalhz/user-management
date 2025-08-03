@@ -1,12 +1,14 @@
 package com.service.authentication.dto.mapper;
 
-import com.service.authentication.dto.response.TokenResponse;
 import org.mapstruct.Mapper;
+
+import com.service.authentication.dto.TokenDto;
+
 
 @Mapper(componentModel = "spring")
 public interface TokenMapper {
 
-  default TokenResponse toTokenResponse(String accessToken, String refreshToken) {
-    return new TokenResponse(accessToken, refreshToken);
+  default TokenDto toTokenDto(String accessToken, String refreshToken) {
+    return new TokenDto(accessToken, refreshToken);
   }
 }

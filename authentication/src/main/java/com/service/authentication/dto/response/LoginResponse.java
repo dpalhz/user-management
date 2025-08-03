@@ -1,5 +1,8 @@
 package com.service.authentication.dto.response;
 
+import com.service.authentication.dto.TokenDto;
+import com.service.authentication.dto.UserProfileDto;
+
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.Data;
@@ -8,8 +11,8 @@ import lombok.Data;
 @Builder
 public class LoginResponse {
   @Schema(description = "Token response containing access and refresh tokens")
-  private TokenResponse tokenResponse;
+  private TokenDto tokenDto;
 
-  @Schema(description = "User response containing user details")
-  private UserResponse userResponse;
+  @Schema(description = "User details of the logged-in user")
+  private UserProfileDto userProfile;
 }

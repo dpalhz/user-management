@@ -1,12 +1,12 @@
 package com.service.authentication.controller;
 
+import com.service.authentication.dto.TokenDto;
 import com.service.authentication.dto.request.LoginRequest;
 import com.service.authentication.dto.request.LogoutRequest;
 import com.service.authentication.dto.request.RegisterRequest;
 import com.service.authentication.dto.request.TokenRefreshRequest;
 import com.service.authentication.dto.response.ApiResponse;
 import com.service.authentication.dto.response.LoginResponse;
-import com.service.authentication.dto.response.TokenResponse;
 import com.service.authentication.service.AuthService;
 import com.service.authentication.util.ApiResponseUtil;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -59,10 +59,10 @@ public class AuthController {
    * @return a response with a new TokenResponse containing the refreshed access token
    */
   @PostMapping("/refresh-token")
-  public ResponseEntity<ApiResponse<TokenResponse>> refresh(
+  public ResponseEntity<ApiResponse<TokenDto>> refresh(
       @RequestBody TokenRefreshRequest request) {
-    TokenResponse tokenResponse = authService.refreshToken(request);
-    return ResponseEntity.ok(ApiResponseUtil.success(200, "Access token refreshed", tokenResponse));
+    TokenDto tokenDto = authService.refreshToken(request);
+    return ResponseEntity.ok(ApiResponseUtil.success(200, "Access token refreshed", tokenDto));
   }
 
   /**

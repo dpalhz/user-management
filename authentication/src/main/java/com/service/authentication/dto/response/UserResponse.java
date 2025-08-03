@@ -15,12 +15,10 @@ public class UserResponse {
   @Schema(description = "Email address of the user", example = "user@example")
   private String email;
 
-  @Schema(description = "Name of the user", example = "John Doe")
-  private String name;
+  @Schema(description= "Username of the user", example = "user" )
+  private String username;
 
-  @Schema(description = "Role of the user", example = "REGULAR")
-  private String role;
-
+  
   @Schema(description = "Indicates if the user account is enabled", example = "true")
   private boolean enabled;
 }
