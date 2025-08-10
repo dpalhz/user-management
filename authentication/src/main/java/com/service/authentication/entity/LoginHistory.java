@@ -28,8 +28,10 @@ public class LoginHistory {
   private User user;
 
   private Instant loginTime;
-  private String ipAddress;
   private String location;
-  private String deviceName;
-  private boolean success;
+  private String ipAddress;
+  private String userAgent;
+  private boolean status;
+  private String loginMethod; // e.g., "password", "oauth", etc.
+
 }
