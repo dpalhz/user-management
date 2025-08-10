@@ -5,33 +5,30 @@ import java.time.Instant;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "login_devices")
-@Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
+@Setter
 @Builder
-public class LoginDevice {
+public class UserDevice extends BaseEntity {
   @Id @GeneratedValue private UUID id;
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "user_id", nullable = false)
   private User user;
-
-  private String deviceName;
+  private String deviceType;
+  private String osName;
   private String ipAddress;
   private String location;
   private String userAgent;
-  private Instant lastLoginAt;
+  private Instant lastActivityAt;
 
-  @Column(updatable = false)
-  private Instant createdAt;
 
-  @PrePersist
-  public void onCreate() {
-    this.createdAt = Instant.now();
-  }
+ 
 }
