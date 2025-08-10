@@ -16,6 +16,8 @@ import com.service.authentication.entity.UserRole;
 import com.service.authentication.entity.UserRoleAssignment;
 import com.service.authentication.exception.AuthErrorCode;
 import com.service.authentication.exception.AuthException;
+import com.service.authentication.exception.UserErrorCode;
+import com.service.authentication.exception.UserException;
 import com.service.authentication.repository.ProfileRepository;
 // import com.service.authentication.kafka.EmailKafkaProducer;
 import com.service.authentication.repository.UserRepository;
@@ -127,7 +129,7 @@ public class AuthServiceImpl implements AuthService {
         user.getId().toString(), refresh, jwtConfig.getRefreshTokenExpirationMs());
 
     UserProfile profile = profileRepository.findByUser(user)
-    .orElseThrow(() -> new AuthException(AuthErrorCode.AUTH_PROFILE_NOT_FOUND));
+    .orElseThrow(() -> new UserException(UserErrorCode.USER_PROFILE_NOT_FOUND));
 
     TokenDto tokenDto = tokenMapper.toTokenDto(access, refresh);
     LoginResponse loginResponse = authMapper.toLoginResponse(tokenDto, userProfileMapper.toUserProfileDto(profile));

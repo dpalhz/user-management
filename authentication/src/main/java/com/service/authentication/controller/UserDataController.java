@@ -2,12 +2,14 @@ package com.service.authentication.controller;
 
 import com.service.authentication.dto.LoginDeviceDto;
 import com.service.authentication.dto.LoginHistoryDto;
-import com.service.authentication.dto.ProfileDto;
+import com.service.authentication.dto.UserProfileDto;
+import com.service.authentication.security.CustomUserDetails;
 import com.service.authentication.service.UserDataService;
 import java.util.List;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -27,9 +29,12 @@ public class UserDataController {
    * @return the profile data
    */
   @GetMapping("/profile")
-  public ResponseEntity<ProfileDto> getProfile(@RequestParam UUID userId) {
-    return ResponseEntity.ok(userDataService.getProfile(userId));
+  public ResponseEntity<UserProfileDto> getProfile(@AuthenticationPrincipal CustomUserDetails userDetails) {
+      UUID userId = userDetails.getId();
+      return ResponseEntity.ok(userDataService.getProfile(userId));
   }
+
+
 
   /**
    * Returns a list of login history records for the given user ID

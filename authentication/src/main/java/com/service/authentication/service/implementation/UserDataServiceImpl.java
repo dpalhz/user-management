@@ -2,9 +2,9 @@ package com.service.authentication.service.implementation;
 
 import com.service.authentication.dto.LoginDeviceDto;
 import com.service.authentication.dto.LoginHistoryDto;
-import com.service.authentication.dto.ProfileDto;
-import com.service.authentication.entity.Profile;
-import com.service.authentication.repository.LoginDeviceRepository;
+import com.service.authentication.dto.UserProfileDto;
+import com.service.authentication.entity.UserProfile;
+import com.service.authentication.repository.UserDeviceRepository;
 import com.service.authentication.repository.LoginHistoryRepository;
 import com.service.authentication.repository.ProfileRepository;
 import com.service.authentication.service.UserDataService;
@@ -21,15 +21,15 @@ public class UserDataServiceImpl implements UserDataService {
 
   private final ProfileRepository profileRepo;
   private final LoginHistoryRepository loginHistoryRepo;
-  private final LoginDeviceRepository loginDeviceRepo;
+  private final UserDeviceRepository loginDeviceRepo;
 
   @Override
-  public ProfileDto getProfile(UUID userId) {
-    Profile profile =
+  public UserProfileDto getProfile(UUID userId) {
+    UserProfile profile =
         profileRepo
             .findByUserId(userId)
             .orElseThrow(() -> new RuntimeException("Profile not found"));
-    ProfileDto dto = new ProfileDto();
+    UserProfileDto dto = new UserProfileDto();
     BeanUtils.copyProperties(profile, dto);
     return dto;
   }
